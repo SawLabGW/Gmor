@@ -1,4 +1,4 @@
-## Assembly parameters
+## Workflow and Commandline Documentation
 
 ### Unicycler assembly commands
 
@@ -58,4 +58,24 @@ anvi-gen-genomes-storage -e external_db.list -o GENOMES.db --gene-caller 'NCBI_P
 anvi-pan-genome -g GENOMES.db -n Gloeo_pan
 anvi-compute-genome-similarity --external-genomes external_db.list --program pyANI --output-dir pyANI --num-threads 4 --pan-db Gloeo_pan/Gloeo_pan-PAN.db
 anvi-display-pan -p Gloeo_pan/Gloeo_pan-PAN.db -g GENOMES.db
+```
+
+### Phylophlan parameters
+
+```
+phylophlan -f custom_phylophlan.cfg -i faas --proteome_extension .faa -d phylophlan --diversity medium --fast --nproc 24 -o phylophlan -t a --verbose 2>&1 | tee phylophlan_rerun3.log
+```
+
+### IQ-Tree parameters
+
+```
+iqtree -s faas_concatenated.aln -m TESTONLY -T 24
+
+iqtree -s faas_concatenated.aln -m LG+F+G4 -T 24 -alrt 1000 -bb 1000 --prefix Gmor
+```
+
+### Tree drawing
+
+```
+python draw_cyano_tree.py -t Gmor.contree -m id_mapping.txt -s -o Gmor.contree.pdf
 ```
