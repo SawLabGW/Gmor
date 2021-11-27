@@ -11,6 +11,33 @@ unicycler \
     -o hybrid_combo1
 ```
 
+### CheckM commands
+
+```
+checkm lineage_wf -f CheckM.txt -t 16 -x fa genomes checkm
+```
+
+### miComplete commands
+
+```
+miComplete genomes.tab --hmms Bact105 --weights Bact105 --threads 4 --outfile micomplete_bact.txt
+```
+
+### BUSCO commands
+
+```
+busco -m genome -i genomes/Gmor-contigs.fa -o busco_out --auto-lineage-prok --cpu 4
+
+for i in `cat g.list`;do busco -m genome -i genomes/${i}-contigs.fa -o output/${i}/ --auto-lineage-prok --cpu 4; done
+
+for i in `cat g.list`;do busco -m genome -i genomes/${i}-contigs.fa -o ${i} --auto-lineage-prok --cpu 4; done
+
+for i in `cat g.list`;do cp ${i}/*.txt summaries/; done
+
+generate_plot.py -wd summaries/
+
+```
+
 ### Anvi'o commands
 
 ```
